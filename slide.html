@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khalid.Dev - Project Presentation</title>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0d0a08;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* THE SLIDE FRAME */
+    .slide-container {
+      background: linear-gradient(145deg, #18140f 0%, #2b2116 60%, #423321 100%);
+      width: 100%;
+      max-width: 850px;
+      min-height: 480px;
+      border: 2px solid #af9164;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      padding: 45px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* SLIDE TITLE */
+    .slide-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffffff;
+      border-bottom: 2px solid #af9164;
+      padding-bottom: 12px;
+      margin-bottom: 25px;
+    }
+
+    .slide-title span {
+      color: #af9164;
+    }
+
+    /* SLIDE BODY CONTENT */
+    .slide-body {
+      flex-grow: 1;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #d7c8b2;
+    }
+
+    .slide-body ul {
+      margin-left: 20px;
+    }
+
+    .slide-body li {
+      margin-bottom: 14px;
+    }
+
+    .slide-body strong {
+      color: #ffffff;
+    }
+
+    /* CONTROLS (BUTTONS & COUNTER) */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(215, 200, 178, 0.2);
+    }
+
+    .slide-number {
+      font-size: 14px;
+      color: #af9164;
+      font-weight: bold;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      background-color: #af9164;
+      color: #18140f;
+      border: none;
+      padding: 10px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .btn:disabled {
+      background-color: #3d3326;
+      color: #7a6a55;
+      cursor: not-allowed;
+    }
+
+    /* PRINT TO PDF CLEANUP */
+    @media print {
+      body { background: white; color: black; }
+      .slide-container { page-break-after: always; display: flex !important; border: 1px solid black; }
+      .slide-footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- THE PRESENTATION BOX -->
+  <div class="slide-container">
+    
+    <div id="slideContent">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <div class="slide-footer">
+      <span class="slide-number" id="slideCounter">Slide 1 of 9</span>
+      <div class="btn-group">
+        <button class="btn" id="prevBtn" onclick="prevSlide()">← Back</button>
+        <button class="btn" id="nextBtn" onclick="nextSlide()">Next →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ALL 9 SLIDES IN SIMPLE WORDS
+    const slides = [
+      {
+        title: "Khalid.Dev — <span>My Portfolio Project</span>",
+        content: `
+          <div style="text-align: center; padding-top: 30px;">
+            <h3 style="font-size: 26px; color: #af9164; margin-bottom: 15px;">Frontend Web Development Project</h3>
+            <p style="font-size: 20px; color: #ffffff;">Built from scratch by: <strong>Khalid Jimoh &amp; Omisore Ruth</strong></p>
+            <p style="margin-top: 25px; color: #d7c8b2;">A complete, mobile-friendly website created to show real-world coding skills using HTML, CSS, Bootstrap, and JavaScript.</p>
+          </div>
+        `
+      },
+      {
+        title: "Why I Built <span>This Project</span>",
+        content: `
+          <ul>
+            <li><strong>The Problem:</strong> Many people use ready-made templates to make websites, so you cannot tell if they really know how to code.</li>
+            <li><strong>My Goal:</strong> I wanted to build everything by hand with real code so people can see my true skills.</li>
+            <li><strong>What makes it special:</strong> I did not copy any template. Every color, card, button, and moving animation was written by me.</li>
+          </ul>
+        `
+      },
+      {
+        title: "The Tools <span>I Used</span>",
+        content: `
+          <ul>
+            <li><strong>HTML:</strong> Built the bones of the website (headings, texts, and boxes).</li>
+            <li><strong>CSS:</strong> Added my custom dark and gold colors and clean fonts.</li>
+            <li><strong>Bootstrap 5:</strong> Made the page fit automatically on any phone or laptop screen.</li>
+            <li><strong>JavaScript:</strong> Added moving parts, live calculations, and form interactions.</li>
+            <li><strong>Google Sheets:</strong> Used like an online book to save visitor messages for free.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Feature 1: <span>The Moving Text (Hero)</span>",
+        content: `
+          <ul>
+            <li><strong>What it does:</strong> At the top of the page, the text types words out by itself like a typewriter.</li>
+            <li><strong>Words it rotates:</strong> <em>"Frontend Developer"</em>, deletes it, then types <em>"JavaScript Builder"</em>, then <em>"Problem Solver"</em>.</li>
+            <li><strong>How I built it:</strong> I wrote JavaScript code with a timer that adds one letter at a time, waits for 2 seconds, backspaces, and starts the next word.</li>
+            <li><strong>Why it matters:</strong> It grabs the visitor's attention immediately without them clicking anything.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Feature 2: <span>The Splitting Skill Cards</span>",
+        content: `
+          <ul>
+            <li><strong>What it does:</strong> My 3 skill cards sit stacked on top of each other like a hand of playing cards.</li>
+            <li><strong>When you hover:</strong> When your mouse touches them, they smoothly slide open into three separate cards!</li>
+            <li><strong>How I built it:</strong> I used only CSS transforms (no heavy JavaScript needed). The left card slides left and the right card slides right.</li>
+            <li><strong>Why it matters:</strong> It looks fun, creative, and proves I know how to build clean CSS animations.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Feature 3: <span>The Project Filter Buttons</span>",
+        content: `
+          <ul>
+            <li><strong>What it does:</strong> Shows my 4 real projects in a neat 2-by-2 grid.</li>
+            <li><strong>The Buttons:</strong> At the top, there are filter buttons: <em>All</em>, <em>Bootstrap 5</em>, and <em>Pure HTML & CSS</em>.</li>
+            <li><strong>How I built it:</strong> When a user clicks a button, JavaScript hides the other projects and only shows the matching ones without reloading the page.</li>
+            <li><strong>Why it matters:</strong> Visitors can quickly find the exact type of projects they want to see.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Feature 4: <span>Contact Form & Google Sheets</span>",
+        content: `
+          <ul>
+            <li><strong>What it does:</strong> Visitors type their name, email, and message, then click "Send Message".</li>
+            <li><strong>The Fetch Tool:</strong> JavaScript sends the message in the background without refreshing the page.</li>
+            <li><strong>Google Sheets Database:</strong> Every message gets saved directly as a new row in my Google Sheet table.</li>
+            <li><strong>Browser Cookies:</strong> The browser remembers the visitor's name so it says <em>"Welcome back!"</em> when they return.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Problems I Solved <span>While Coding</span>",
+        content: `
+          <ul>
+            <li><strong>The Top Bar:</strong> At first, the top menu disappeared when scrolling. I fixed it so it stays locked at the top of the screen.</li>
+            <li><strong>The Image Size:</strong> My photo was too big and pushed the text down. I used CSS to frame the height so my face stays sharp.</li>
+            <li><strong>Sending Messages to Google:</strong> The browser was blocking messages sent to Google. I added the right settings so it delivers smoothly.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Conclusion & <span>Final Takeaway</span>",
+        content: `
+          <ul>
+            <li><strong>Summary:</strong> I started with an empty file and built a complete, fully working website from scratch.</li>
+            <li><strong>Real Skills:</strong> It proves I can design clean layouts, make them fit on any phone, and write real JavaScript logic.</li>
+            <li><strong>Thank You!</strong> I am happy to show the live website and answer any questions.</li>
+          </ul>
+        `
+      }
+    ];
+
+    let currentSlide = 0;
+
+    function renderSlide() {
+      const slide = slides[currentSlide];
+      document.getElementById("slideContent").innerHTML = `
+        <h2 class="slide-title">${slide.title}</h2>
+        <div class="slide-body">${slide.content}</div>
+      `;
+
+      document.getElementById("slideCounter").innerText = `Slide ${currentSlide + 1} of ${slides.length}`;
+      document.getElementById("prevBtn").disabled = (currentSlide === 0);
+      document.getElementById("nextBtn").innerText = (currentSlide === slides.length - 1) ? "Finish" : "Next →";
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        renderSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        renderSlide();
+      }
+    }
+
+    // Keyboard arrow keys (← and →) to change slides:
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+    });
+
+    // Start presentation
+    renderSlide();
+  </script>
+</body>
+</html>
